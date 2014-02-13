@@ -55,10 +55,25 @@ FF[0]="70.8"
 FF[1]="70.4"
 FF[2]="70.1"
 
-chmod u+x userInput.ksh
-ksh userInput.ksh
+declare -a answers
+echo "Enter the reference cell calibration factor: "
+read CFref
 
-echo $answers
+echo "Enter reference cell temperature coefficient: "
+read TCref
+
+echo "Enter Temperature coefficient for voltage: "
+read v1
+
+echo "Enter Temperature coefficient for maximum voltage: "
+read v2
+
+echo "Enter Temperature coefficient for FF: "
+read f
+
+echo "Enter Temperature coefficient for power: "
+read p
+
 
 #echo ${Date[0]}
 #echo ${Date[1]}

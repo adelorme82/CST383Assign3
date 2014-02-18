@@ -16,5 +16,12 @@ STCImp()
 }
 
 
+average()
+{
+	((sum=$1 + $2 + $3))
+	((avg=`echo "$sum/3" | bc -l`))
+}
 
 
+average 2 4 6
+echo "Result is: $?"

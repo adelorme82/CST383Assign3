@@ -1,16 +1,30 @@
 STCIrradiance()
 {
-(result=(Irradiance*CFref)/(CFref+TCref(Tref-25)))
-return result
+	#$1 = Irradiance
+	#$2 = CFref
+	#$3 = TCref
+
+STCIrradiance =`echo "($1*$2)/($2+$3($3-25))" | bc -l`
+return $STCIrradiance
 }
+
 STCPm()
 {
-(result=Pm/STCIrradiance*100+p(25-Tm-2.5))
-return result
+	#$1 = PM
+	#$2 = STCIrradiance
+	#$3 = p
+	#$4 = Tm 
+	
+STCPm=`echo $1/$2*100+$3(25-$4-2.5) | bc -l`
+return $STCPm
 }
 STCVoc()
 {
-(result=Voc+v1(25-Tm-2.5))
-return result
+	#$1 = Voc
+	#$2 = v1
+	#$3 = Tm
+	
+STCVoc =`echo $1+$2(25-$3-2.5) | bc -l`
+return $STCVoc
 }
 

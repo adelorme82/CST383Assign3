@@ -1,3 +1,10 @@
+# Course Id: CST 383
+# Team Identification: 5
+# Team Members:
+# Austin Delorme
+# Alex Molina
+# Christopher Cowley
+# Project Deliverable: Assignment 3 (Team Project I): <Deliverable title>
 
 getUserInput()
 {
@@ -71,6 +78,19 @@ Pm[2]="76.34"
 FF[0]="70.8"
 FF[1]="70.4"
 FF[2]="70.1"
+
+echo ${Date[*]}
+echo ${Time[*]}
+echo ${Tamb[*]}
+echo ${Tref[*]}
+echo ${Tm[*]}
+echo ${Irradiande[*]}
+echo ${Isc[*]}
+echo ${Voc[*]}
+echo ${Imp[*]}
+echo ${Vmp[*]}
+echo ${Pm[*]}
+echo ${F[*]}
 
 getUserInput 
 

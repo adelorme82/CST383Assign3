@@ -4,7 +4,7 @@
 # Austin Delorme
 # Alex Molina
 # Christopher Cowley
-# Project Deliverable: Assignment 3 (Team Project I): <Deliverable title>
+# Project Deliverable: Assignment 3 (Team Project I): Variables Assignments
 
 getUserInput()
 {

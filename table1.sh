@@ -2,22 +2,22 @@
 getUserInput()
 {
 	echo "Enter the reference cell calibration factor: "
-	read answers[1] #CFref
+	read answers[0] #CFref
 
 	echo "Enter reference cell temperature coefficient: "
-	read answers[2] #TCref
+	read answers[1] #TCref
 
 	echo "Enter Temperature coefficient for voltage: "
-	read answers[3] #v1
+	read answers[2] #v1
 
 	echo "Enter Temperature coefficient for maximum voltage: "
-	read answers[4] #v2
+	read answers[3] #v2
 
 	echo "Enter Temperature coefficient for FF: "
-	read answers[5] #f
+	read answers[4] #f
 
 	echo "Enter Temperature coefficient for power: "
-	read answers[6] #p
+	read answers[5] #p
 
 }
 
@@ -76,12 +76,12 @@ getUserInput
 
 echo #newline after input
 echo 'You entered: '
-echo -e 'CFref:\t' ${answers[1]}
-echo -e 'TCref:\t' ${answers[2]}
-echo -e 'v1:\t' ${answers[3]}
-echo -e 'v2:\t' ${answers[4]}
-echo -e 'f:\t' ${answers[5]}
-echo -e 'p:\t' ${answers[6]}
+echo -e 'CFref:\t' ${answers[0]}
+echo -e 'TCref:\t' ${answers[1]}
+echo -e 'v1:\t' ${answers[2]}
+echo -e 'v2:\t' ${answers[3]}
+echo -e 'f:\t' ${answers[4]}
+echo -e 'p:\t' ${answers[5]}
 
 
 

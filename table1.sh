@@ -74,19 +74,20 @@ FF[2]="70.1"
 
 getUserInput 
 
+CFref=${answers[0]}
+TCref=${answers[1]}
+v1=${answers[2]}
+v2=${answers[3]}
+f=${answers[4]}
+p=${answers[5]}
+
 echo #newline after input
 echo 'You entered: '
-echo -e 'CFref:\t' ${answers[0]}
-echo -e 'TCref:\t' ${answers[1]}
-echo -e 'v1:\t' ${answers[2]}
-echo -e 'v2:\t' ${answers[3]}
-echo -e 'f:\t' ${answers[4]}
-echo -e 'p:\t' ${answers[5]}
-
-
-
-
-
-
+echo -e 'CFref:\t' $CFref
+echo -e 'TCref:\t' $TCref
+echo -e 'v1:\t' $v1
+echo -e 'v2:\t' $v2
+echo -e 'f:\t' $f
+echo -e 'p:\t' $p
 
 

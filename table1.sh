@@ -1,3 +1,27 @@
+
+getUserInput()
+{
+	echo "Enter the reference cell calibration factor: "
+	read answers[1] #CFref
+
+	echo "Enter reference cell temperature coefficient: "
+	read answers[2] #TCref
+
+	echo "Enter Temperature coefficient for voltage: "
+	read answers[3] #v1
+
+	echo "Enter Temperature coefficient for maximum voltage: "
+	read answers[4] #v2
+
+	echo "Enter Temperature coefficient for FF: "
+	read answers[5] #f
+
+	echo "Enter Temperature coefficient for power: "
+	read answers[6] #p
+
+}
+
+
 declare -a Date
 declare -a Time
 declare -a Tamb
@@ -56,20 +80,22 @@ FF[1]="70.4"
 FF[2]="70.1"
 
 declare -a answers
-echo "Enter the reference cell calibration factor: "
-read CFref
 
-echo "Enter reference cell temperature coefficient: "
-read TCref
+getUserInput 
 
-echo "Enter Temperature coefficient for voltage: "
-read v1
+echo #newline after input
+echo 'You entered: '
+echo -e 'CFref:\t' ${answers[1]}
+echo -e 'TCref:\t' ${answers[2]}
+echo -e 'v1:\t' ${answers[3]}
+echo -e 'v2:\t' ${answers[4]}
+echo -e 'f:\t' ${answers[5]}
+echo -e 'p:\t' ${answers[6]}
 
-echo "Enter Temperature coefficient for maximum voltage: "
-read v2
 
-echo "Enter Temperature coefficient for FF: "
-read f
 
-echo "Enter Temperature coefficient for power: "
-read p
+
+
+
+
+

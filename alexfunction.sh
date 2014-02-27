@@ -1,13 +1,20 @@
 #!/bin/sh
 STCVmp() {
-	result=`echo "($1+$2*(25-$3-2.5))" | bc -l`
+	# $1 = Vm
+	# $2 = v2
+	# $3 = Tm
+	STCVmp=`echo "($1+$2*(25-$3-2.5))" | bc -l`
 }
 
-#Vm +v2 (25-tm-2.5)
 
-#STCFF(){
-#	return $(( FF + f (25-tm-2.5) ))
-#}
+STCFF(){
+	# $1 = FF
+	# $2 = f
+	# $3 = Tm
+	STCFF=`echo "($1+$2*(25-$3-2.5))" | bc -l`
+}
 
 STCVmp 1 2 3
-echo "result is $result"
+STCFF 3 4 5
+echo "STCVmp is $STCVmp"
+echo "STCFF is $STCFF"

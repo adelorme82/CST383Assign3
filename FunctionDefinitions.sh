@@ -47,30 +47,31 @@ STCPm()
 STCPm=`echo "$1/$2*100+$3*(25-$4-2.5)" | bc -l`
 
 }
-STCVoc()
+STCVoltage()
 {
 	#$1 = Voc
 	#$2 = v1
 	#$3 = Tm
-	
-STCVoc=`echo "$1+$2*(25-$3-2.5)" | bc -l`
+	result=`echo "$1+$2*(25-$3-2.5)" | bc -l`
 
 }
-STCVmp() 
-{
-	# $1 = Vm
-	# $2 = v2
-	# $3 = Tm
-	STCVmp=`echo "($1+$2*(25-$3-2.5))" | bc -l`
-}
 
-STCFF()
-{
-	# $1 = FF
-	# $2 = f
-	# $3 = Tm
-	STCFF=`echo "($1+$2*(25-$3-2.5))" | bc -l`
-}
+## These are duplicates of the above STCVoltage
+# STCVmp() 
+# {
+# 	# $1 = Vm
+# 	# $2 = v2
+# 	# $3 = Tm
+# 	STCVmp=`echo "($1+$2*(25-$3-2.5))" | bc -l`
+# }
+# 
+# STCFF()
+# {
+# 	# $1 = FF
+# 	# $2 = f
+# 	# $3 = Tm
+# 	STCFF=`echo "($1+$2*(25-$3-2.5))" | bc -l`
+# }
 STCIsc()
 {
 	#$1 = STCPm
@@ -88,8 +89,8 @@ STCImp()
 
 average()
 {
-	((sum=$1 + $2 + $3))
-	average=`echo "$sum/3" | bc -l`
+	average=`echo "($1+$2+$3)/3" | bc -l`
+	#average=`echo "$sum/3" | bc -l`
 }
 declare -a Date
 declare -a Time
@@ -153,7 +154,7 @@ echo ${Voc[*]}
 echo ${Imp[*]}
 echo ${Vmp[*]}
 echo ${Pm[*]}
-echo ${F[*]}
+echo ${FF[*]}
 
 getUserInput 
 
@@ -173,20 +174,66 @@ echo -e 'v2:\t' $v2
 echo -e 'f:\t' $f
 echo -e 'p:\t' $p
 
-STCIrradiance 1 2 3
-STCPm 1 2 3 4
-STCVoc 1 2 3
-STCVmp 1 2 3
-STCFF 3 4 5
-STCIsc 8 4 2
-STCImp 3 8
-average 2 4 6
+declare -a STCIrradianceCalc
+declare -a STCPmCalc
+declare -a STCVocCalc
+declare -a STCVmpCalc
+declare -a STCFFCalc
+declare -a STCIscCalc
+declare -a STCImpCalc
 
-echo "STCIrradiance is $STCIrradiance"
-echo "STCPm is $STCPm"
-echo "STCVoc is $STCVoc"
-echo "STCVmp is $STCVmp"
-echo "STCFF is $STCFF"
-echo "STCIsc result is $STCIsc"
-echo "STCImp result is $STCImp"
-echo "Average result is: $average"
+
+echo "===========Starting Loop!==========="
+for var in 0 1 2
+do
+	STCIrradiance ${Irradiande[$var]} $CFref $TCref
+	STCPm ${Pm[$var]} $STCIrradiance $p ${Tm[$var]}
+	STCVoltage ${Voc[$var]} $v1 ${Tm[$var]}
+	STCVoc=$result
+	STCVoltage ${Vmp[$var]} $v2 ${Tm[$var]}
+	STCVmp=$result
+	STCVoltage ${FF[$var]} $f ${Tm[$var]}
+	STCFF=$result
+	STCIsc $STCPm $STCVoc $STCFF
+	STCImp $STCPm $STCVmp
+
+	STCIrradianceCalc[$var]=$STCIrradiance
+	echo -e "STCIrradiance: \t \t" $STCIrradiance
+	STCPmCalc[$var]=$STCPm
+	echo -e "STCPm: \t \t \t" $STCPm
+	STCVocCalc[$var]=$STCVoc
+	echo -e "STCVoc: \t \t" $STCVoc
+	STCVmpCalc[$var]=$STCVmp
+	echo -e "STCVmp: \t \t" $STCVmp
+	STCFFCalc[$var]=$STCFF
+	echo -e "STCFF: \t \t \t" $STCFF
+	STCIscCalc[$var]=$STCIsc
+	echo -e "STCIsc: \t \t" $STCIsc
+	STCImpCalc[$var]=$STCImp
+	echo -e "STCImp: \t \t" $STCImp
+	echo #linebreak
+done
+echo "===========Loop Over!==========="
+
+average ${STCIrradianceCalc[0]} ${STCIrradianceCalc[1]} ${STCIrradianceCalc[2]}
+STCIrradianceFinal=$average
+average ${STCPmCalc[0]} ${STCPmCalc[1]} ${STCPmCalc[2]}
+STCPmFinal=$average
+average ${STCVocCalc[0]} ${STCVocCalc[1]} ${STCVocCalc[2]}
+STCVocFinal=$average
+average ${STCVmpCalc[0]} ${STCVmpCalc[1]} ${STCVmpCalc[2]}
+STCVmpFinal=$average
+average ${STCFFCalc[0]} ${STCFFCalc[1]} ${STCFFCalc[2]}
+STCFFFinal=$average
+average ${STCIscCalc[0]} ${STCIscCalc[1]} ${STCIscCalc[2]}
+STCIscFinal=$average
+average ${STCImpCalc[0]} ${STCImpCalc[1]} ${STCImpCalc[2]}
+STCImpFinal=$average
+
+echo -e "STCIrradiance average is \t $STCIrradianceFinal"
+echo -e "STCPm average is \t \t $STCPmFinal"
+echo -e "STCVoc average is \t \t $STCVocFinal"
+echo -e "STCVmp average is \t \t $STCVmpFinal"
+echo -e "STCFF average is \t \t $STCFFFinal"
+echo -e "STCIsc average is \t \t $STCIscFinal"
+echo -e "STCImp average is \t \t $STCImpFinal"

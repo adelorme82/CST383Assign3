@@ -25,8 +25,8 @@ getUserInput()
 
 	echo "Enter Temperature coefficient for power: "
 	read answers[5] #p
-
 }
+
 
 declare -a Date
 declare -a Time
@@ -109,5 +109,6 @@ echo -e 'v1:\t' $v1
 echo -e 'v2:\t' $v2
 echo -e 'f:\t' $f
 echo -e 'p:\t' $p
+
 
 

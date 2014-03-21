@@ -28,3 +28,8 @@ echo "STCImp result is $STCImp"
 
 average 2 4 6
 echo "Average result is: $average"
+
+. ./alexfunction.sh
+
+STCVmp 4 5 6
+echo "alex's is $STCVmp"

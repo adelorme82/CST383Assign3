@@ -2,5 +2,7 @@
 
 for file in *
 do
- grep -v 
+ grep -v 'beggining[A-Z][A-Z]end'
 done
+
+

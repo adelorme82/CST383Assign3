@@ -1,10 +1,9 @@
 #! /bin/sh
 
-# need to get loop to function 
+# checks that every address generated includes a state code that follows the phone number.
 
-for file in *
-do
- grep -v '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][A-Z][A-Z]'
-done
+
+grep -v '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][A-Z][A-Z]' *
+
 
 

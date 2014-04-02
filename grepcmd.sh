@@ -1,61 +1,48 @@
-regex='^[A-Z][a-z]*[A-Z]\{0,1\}[A-Z][a-z]*[0-9]\{9\}.*@.*\..*[0-9]\{10\}[A-Z]\{2\}[0-9]\{1,\}[A-Za-z]\{1,\}[0-9]*[A-Za-z]\{1,\}[0-9]\{5\}$'
+filesPattern=data/*.dat
 
-echo "=======MATCHES===="
-grep $regex *.dat
+echo "Task 1 failures:"
+task1="^[A-Za-z]*[0-9]\{9\}.*"
+# some letters followed by 9 digits
+grep -vn $task1 $filesPattern
+echo
 
-valid='[A-Za-z0-9]*@[A-Za-z0-9]*\.[A-Za-z0-9]*$'
-# characters, @ sign, characters, period, characters, end of line
+echo "Task 2 failures:"
+task2="^[A-Z][a-z]*[A-Z]\{1,2\}[a-z]"
+# capital letter, some lowercase letters, one or two capital letters (middle then last), some lowercase
+grep -vn $task2 $filesPattern
+echo
 
-echo "===NON-MATCHES===="
-grep -v $regex *.dat | grep "[a-zA-Z]*\.dat:$valid"
-# incorrect format but correct characters
-# grep returns results from different files in form of
-# username.dat:<text>
-# matched by
-# [a-zA-Z]*\.dat:
+echo "Task 3 failures:"
+task3="[0-9]\{5\}$"
+# 5 digits at end of line
+grep -vn $task3 $filesPattern
+echo
 
-echo "===INVALID ENTRIES===="
-grep -v $valid *.dat
+echo "Task 4 failures:"
+task4="[0-9]\{10\}[A-Z]\{2\}"
+# ten digits followed by two capital
+grep -vn $task4 $filesPattern
+echo
+
+echo "Task 5 failures:"
+task5="@[A-Za-z0-9]\{1,\}\.[A-Za-z0-9]\{1,\}[0-9]\{10\}"
+# @ symbol, one or more letters or numbers, period, one or more letters or numbers, 10 digits
+grep -vn $task5 $filesPattern
+echo
+
+echo "Task 6 failures:"
+task6="[0-9]\{9\}[A-Za-z0-9\.]\{1,\}@[A-Za-z0-9]\{1,\}\.[A-Za-z0-9]\{1,\}[0-9]\{10\}"
+# 9 digits, one or more letters or numbers or dots, @ symbol, one or more letters or numbers, a dot, one or more letters or numbers, 10 digits
+grep -vn $task6 $filesPattern
+echo
+
+echo "Task 7 failures:"
+task7="[A-Z][A-Z][0-9]\{1,\}[A-Z0-9][A-Za-z0-9]\{1,\}[A-Z][A-Za-z]*"
+# two capital letters, 1 or more digits, a capital letter or number (Street), one or more letters or numbers, a capital letter (city), any number of lowercase letters
+grep -vn $task7 $filesPattern
+echo
 
 
-
-
-
-# first name
-# [A-Z][a-z]*
-
-# middle initial
-# [A-Z]\{0,1\}
-
-# last name
-# [A-Z][a-z]*
-
-# SSN
-# [0-9]\{9\}
-
-# first part of email
-# .*@
-
-# second part of email, any characters then a dot then any characters
-# .*\..*
-
-# phone number
-# [0-9]\{10\}
-
-# state code
-# [A-Z]\{2\}
-
-# street number (one or mroe digits)
-# [0-9]\{1,\}
-
-# street name (one or more letters)
-# [A-Za-z]\{1,\}
-
-# apt number (0 or more numbers)
-# [0-9]*
-
-# city (one or more letters)
-# [A-Za-z]\{1,\}
-
-# zip code
-# [0-9]\{5\}
+valid='^[A-Za-z0-9\.]*@[A-Za-z0-9]*\.[A-Za-z0-9]*$'
+#start of line, any character (including periods, for in email address), @ symbol, any characters, period, any characters, and of line
+grep -vn $valid $filesPattern

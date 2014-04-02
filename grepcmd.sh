@@ -1,4 +1,4 @@
-filesPattern=data/*.dat
+filesPattern=datadir/*.dat
 
 echo "Task 1 failures:"
 task1="^[A-Za-z]*[0-9]\{9\}.*"

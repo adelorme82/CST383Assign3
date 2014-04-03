@@ -1,4 +1,10 @@
-filesPattern=datdir/*.dat
+#!/bin/sh
+echo "CST383 S14 - Address book database" > header
+echo "FirstName MiddleInitial(Optional) LastName SSN/ID Email Phone State Street# StreetName Apt#(optional) City Zip" >> header
+cat header team*.dat > addressbook.db
+rm header
+
+filesPattern=team*.dat
 
 echo "Task 1 failures:"
 task1="^[A-Za-z]*[0-9]\{9\}.*"
@@ -42,7 +48,9 @@ task7="[A-Z][A-Z][0-9]\{1,\}[A-Z0-9][A-Za-z0-9]\{1,\}[A-Z][A-Za-z]*"
 grep -vn $task7 $filesPattern
 echo
 
-
+echo "Invalid entries:"
 valid='^[A-Za-z0-9\.]*@[A-Za-z0-9]*\.[A-Za-z0-9]*$'
 #start of line, any character (including periods, for in email address), @ symbol, any characters, period, any characters, and of line
 grep -vn $valid $filesPattern
+echo
+
